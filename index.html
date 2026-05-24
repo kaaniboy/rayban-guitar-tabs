@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=600, height=600, initial-scale=1.0">
+  <title>Band Tabs</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="home-screen" class="screen">
+    <header>
+      <h1>Guitar Tabs</h1>
+    </header>
+    <main>
+      <div id="song-list" class="list-container">
+        <!-- populated by app.js -->
+        <div class="focusable song-item" tabindex="0">Loading songs...</div>
+      </div>
+    </main>
+  </div>
+
+  <div id="tab-screen" class="screen hidden">
+    <main style="padding-top: 0px;">
+      <pre id="tab-content" class="tab-text focusable scrollable" tabindex="0">Loading...</pre>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
