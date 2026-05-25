@@ -25,6 +25,13 @@ function handleKeyDown(e) {
 
   if (e.key === 'Enter') {
     e.preventDefault();
+    if (state.currentScreen === 'tab-screen') {
+      if (state.tabPages.length > 0 && state.currentTabPage < state.tabPages.length - 1) {
+        state.currentTabPage++;
+        renderTabPage();
+      }
+      return;
+    }
     const action = active && active.getAttribute('data-action');
     if (action) {
       handleAppAction(action, active);
