@@ -1,6 +1,6 @@
 const state = {
   currentScreen: 'home-screen',
-  songs: ['hotel_california.txt', 'hold_me_tight.txt'], // Fallback if API fails
+  songs: ['hotel_california.txt', 'hold_me_tight.txt', 'country_roads.txt'], // Fallback if API fails
   tabPages: [],
   currentTabPage: 0,
 };
