@@ -95,7 +95,7 @@ function navigateTo(screenId) {
 
 async function init() {
   try {
-    const res = await fetch('/songs.json');
+    const res = await fetch('/api/songs');
     if (res.ok) {
       state.songs = await res.json();
     }
