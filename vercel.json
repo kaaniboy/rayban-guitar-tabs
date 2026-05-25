@@ -1,5 +1,12 @@
 {
+  "functions": {
+    "server.js": {
+      "runtime": "vercel-node@latest"
+    }
+  },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/server.js" }
+    { "source": "/api/songs", "destination": "/server.js" },
+    { "source": "/tabs/(.*)", "destination": "/server.js" },
+    { "source": "/(.*)", "destination": "/$1" }
   ]
 }
