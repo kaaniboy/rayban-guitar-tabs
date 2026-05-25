@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/songs", "destination": "/api/index.js" },
-    { "source": "/tabs/(.*)", "destination": "/api/index.js" }
+    { "source": "/(.*)", "destination": "/$1" }
   ]
 }
