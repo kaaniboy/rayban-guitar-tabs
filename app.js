@@ -1,6 +1,6 @@
 const state = {
   currentScreen: 'home-screen',
-  songs: ['hotel_california.txt'], // Fallback if API fails
+  songs: ['hotel_california.txt', 'hold_me_tight.txt'], // Fallback if API fails
   tabPages: [],
   currentTabPage: 0,
 };
@@ -73,6 +73,10 @@ function handleKeyDown(e) {
     moveFocus(1, focusables, currentIndex);
   } else if (e.key === 'ArrowLeft') {
     e.preventDefault();
+    if (state.currentScreen === 'tab-screen') {
+      navigateTo('home-screen');
+      return;
+    }
     if (isScrollable) {
       const prev = active.scrollLeft;
       active.scrollLeft -= 60;
@@ -111,7 +115,10 @@ function navigateTo(screenId) {
 
 async function init() {
   try {
-    const res = await fetch('/api/songs');
+    let res = await fetch('/api/songs');
+    if (!res.ok) {
+      res = await fetch('songs.json');
+    }
     if (res.ok) {
       state.songs = await res.json();
     }
