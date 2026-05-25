@@ -1,6 +1,8 @@
 const state = {
   currentScreen: 'home-screen',
   songs: ['hotel_california.txt'], // Fallback if API fails
+  tabPages: [],
+  currentTabPage: 0,
 };
 
 document.addEventListener('keydown', handleKeyDown);
@@ -33,6 +35,13 @@ function handleKeyDown(e) {
   // Handle D-pad
   if (e.key === 'ArrowDown') {
     e.preventDefault();
+    if (state.currentScreen === 'tab-screen') {
+      if (state.tabPages.length > 0 && state.currentTabPage < state.tabPages.length - 1) {
+        state.currentTabPage++;
+        renderTabPage();
+      }
+      return;
+    }
     if (isScrollable) {
       const prev = active.scrollTop;
       active.scrollTop += 60;
@@ -41,6 +50,13 @@ function handleKeyDown(e) {
     moveFocus(1, focusables, currentIndex);
   } else if (e.key === 'ArrowUp') {
     e.preventDefault();
+    if (state.currentScreen === 'tab-screen') {
+      if (state.tabPages.length > 0 && state.currentTabPage > 0) {
+        state.currentTabPage--;
+        renderTabPage();
+      }
+      return;
+    }
     if (isScrollable) {
       const prev = active.scrollTop;
       active.scrollTop -= 60;
@@ -127,18 +143,31 @@ function renderSongList() {
 
 async function openTab(songId) {
   document.getElementById('tab-content').textContent = 'Loading...';
+  const pageIndicator = document.getElementById('page-indicator');
+  if (pageIndicator) pageIndicator.textContent = '';
   navigateTo('tab-screen');
 
   try {
     const res = await fetch('/tabs/' + songId);
     if (res.ok) {
         const text = await res.text();
-        document.getElementById('tab-content').textContent = text;
+        state.tabPages = text.split('///').map(p => p.trim()).filter(p => p !== '');
+        state.currentTabPage = 0;
+        renderTabPage();
     } else {
         document.getElementById('tab-content').textContent = 'Tab file not found.';
     }
   } catch(e) {
     document.getElementById('tab-content').textContent = 'Error loading tab.';
+  }
+}
+
+function renderTabPage() {
+  if (!state.tabPages || state.tabPages.length === 0) return;
+  document.getElementById('tab-content').textContent = state.tabPages[state.currentTabPage];
+  const pageIndicator = document.getElementById('page-indicator');
+  if (pageIndicator) {
+    pageIndicator.textContent = `${state.currentTabPage + 1} / ${state.tabPages.length}`;
   }
 }
 
