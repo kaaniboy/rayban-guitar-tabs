@@ -103,7 +103,7 @@ main {
 
 .tab-text {
   font-family: monospace;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   line-height: 1.4;
   white-space: pre;
@@ -115,4 +115,11 @@ main {
   flex-grow: 1;
   margin: 0;
   border: 2px solid transparent;
+}
+
+.tab-text.focusable:focus {
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+  opacity: 1;
 }
