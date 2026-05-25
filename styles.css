@@ -108,6 +108,7 @@ main {
   white-space: pre;
   overflow: auto;
   background-color: var(--surface);
+  color: #39FF14;
   padding: 16px;
   border-radius: 12px;
   flex-grow: 1;
